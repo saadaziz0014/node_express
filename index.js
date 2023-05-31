@@ -1,11 +1,10 @@
-//global and non-global module aur package
+//pass function in parameter and http server
 
-//const fs = require("fs"); //not neccessary for variable have same name
-const fswrite = require("fs").writeFileSync;
-console.log(5 + 6); //core module
+const http = require("http");
 
-//fs is non-global need to require it
+const fileData = (req, res) => {
+  res.write("<h1>Data Write</h1>");
+  res.end();
+};
 
-//fs.writeFileSync("app.txt", "Data in App");
-
-fswrite("code.txt", "Code write");
+http.createServer(fileData).listen(4500);
