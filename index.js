@@ -1,3 +1,3 @@
-const colors = require("colors");
+const chalk = require("chalk");
 
-console.log("Hello in Blue".blue);
+console.log(chalk.blue("Saad") + " and " + chalk.red("Aziz"));
