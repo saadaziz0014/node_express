@@ -1,10 +1,11 @@
-const http = require("http");
-const d = require("./data.js");
-http
-  .createServer((req, res) => {
-    res.writeHead(200, { "Content-Type": "application/json" });
-    //res.write("Good");
-    res.write(JSON.stringify(d));
-    res.end();
-  })
-  .listen(4500);
+const { log } = require("console");
+const process = require("process");
+const path = require("path");
+const fs = require("fs");
+
+const publicPath = path.join(__dirname, "public");
+const filePath = `${publicPath}/${process.argv[2]}`;
+
+log(process.argv);
+
+fs.writeFileSync(filePath, "Good to See You");
