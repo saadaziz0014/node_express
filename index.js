@@ -1,9 +1,18 @@
 let a = 5;
 let b = 9;
 
-setTimeout(() => {
-  b = b + 8;
-}, 2000);
+const myP = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    b = b + 9;
+    resolve(b);
+  }, 2000);
+  //reject("some error");
+});
 
-console.log(a + b);
-//issue is data increase late
+myP
+  .then((data) => {
+    console.log(a + data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
