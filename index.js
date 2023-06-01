@@ -1,11 +1,8 @@
 const { log } = require("console");
-const process = require("process");
-const path = require("path");
 const fs = require("fs");
 
-const publicPath = path.join(__dirname, "public");
-const filePath = `${publicPath}/${process.argv[2]}`;
+fs.readdir(__dirname, (err, item) => {
+  log(item);
+});
 
-log(process.argv);
-
-fs.writeFileSync(filePath, "Good to See You");
+//if err occur it show error
