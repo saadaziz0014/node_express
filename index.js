@@ -1,18 +1,9 @@
-let a = 5;
-let b = 9;
+const express = require("express");
 
-const myP = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    b = b + 9;
-    resolve(b);
-  }, 2000);
-  //reject("some error");
+const app = express();
+
+app.get("", (req, res) => {
+  res.send("Sent");
 });
 
-myP
-  .then((data) => {
-    console.log(a + data);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+app.listen(4500);
