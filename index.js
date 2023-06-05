@@ -1,19 +1,20 @@
-import express from "express";
-import bodyParser from "body-parser";
+import  express from "express";
+import { basicAuth,hasRole } from "./middleware.js";
+import { canView, createProject } from "./permission.js";
 const app = express();
-import { showData, insertData, updateManyData ,updateData, deleteData } from "./controller.js";
-import './conn.js';
-app.use(express.json());
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
 
-
-app.get("/",showData);
-app.post("/add",insertData);
-app.put("/change/:name",updateManyData);
-app.delete("/remove/:id",deleteData);
-app.patch("/changeOne/:id",updateData);
-
-app.listen(4500,()=>{
-  console.log("Backend Running");
+app.get("/",basicAuth,(req,res)=>{
+  res.send("Welcome");
 })
+
+app.post("/makeProject",basicAuth,createProject,(req,res)=>{
+  //logic
+  res.send("Yeh You can");
+})
+
+app.get("/viewProject",basicAuth,canView,(req,res)=>{
+  //logic
+  res.send("Data");
+});
+
+app.listen(8080);
