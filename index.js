@@ -1,23 +1,19 @@
-const express = require("express");
-const path = require("path");
-const bodyParser = require("body-parser");
-const { json } = require("body-parser");
+import express from "express";
+import bodyParser from "body-parser";
 const app = express();
-
-app.set("view engine","ejs");
-
+import { showData, insertData, updateManyData ,updateData, deleteData } from "./controller.js";
+import './conn.js';
+app.use(express.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
-app.get("/",(req,res)=>{
-  res.render("info");
+
+
+app.get("/",showData);
+app.post("/add",insertData);
+app.put("/change/:name",updateManyData);
+app.delete("/remove/:id",deleteData);
+app.patch("/changeOne/:id",updateData);
+
+app.listen(4500,()=>{
+  console.log("Backend Running");
 })
-
-
-app.post("/show",(req,res)=>{
-  const formData = req.body;
-  const jsonD = JSON.stringify(formData);
-  const {name,age} = JSON.parse(jsonD);
-  res.render("index",{name,age});
-})
-
-app.listen(4500);

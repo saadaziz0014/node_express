@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "package.json contain project information regarding to code and dependancies",
   "main": "index.js",
+  "type":"module",
   "scripts": {
     "start": "nodemon index.js"
   },
@@ -23,6 +24,7 @@
     "colors": "^1.4.0",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
+    "mongoose": "^7.2.2",
     "nodemon": "^2.0.22"
   }
 }
