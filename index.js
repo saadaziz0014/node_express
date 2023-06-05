@@ -1,26 +1,23 @@
 const express = require("express");
 const path = require("path");
-
+const bodyParser = require("body-parser");
+const { json } = require("body-parser");
 const app = express();
-app.use(express.static(path.join(__dirname,"public")));
-app.get("/about", (req, res) => {
-  const data = req.query.id;
-  res.send(data);
-}); //http://localhost:4500/about?id=5
 
-app.get("/file", (req, res) => {
-  res.send("<h1>Saad</h1>");
-});
+app.set("view engine","ejs");
 
-app.get("/json", (req, res) => {
-  res.send({
-    age: 25,
-    id: 7,
-  });
-});
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+app.get("/",(req,res)=>{
+  res.render("info");
+})
 
-app.get("/about",(req,res)=>{
-  res.sendFile(path.join(__dirname,"public/about.html"));
+
+app.post("/show",(req,res)=>{
+  const formData = req.body;
+  const jsonD = JSON.stringify(formData);
+  const {name,age} = JSON.parse(jsonD);
+  res.render("index",{name,age});
 })
 
 app.listen(4500);
