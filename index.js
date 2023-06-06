@@ -1,8 +1,11 @@
-import os from "os";
+import express from "express";
+import { deleteData, getData, insertData, updateData } from "./controller.js";
+const app = express();
+app.use(express.json());
 
-console.log(os.arch());
-console.log(os.freemem()/1024/1024/1024);
-console.log(os.totalmem()/1024/1024/1024);
-console.log(os.hostname());
-console.log(os.platform());
-console.log(os.type());
+
+app.get("/",getData);
+app.post("/",insertData)
+app.put("/:name",updateData);
+app.delete("/:name",deleteData);
+app.listen(3000);
