@@ -1,20 +1,24 @@
-import  express from "express";
-import { basicAuth,hasRole } from "./middleware.js";
-import { canView, createProject } from "./permission.js";
+import express from "express";
+
+import events from "events";
+
 const app = express();
 
-app.get("/",basicAuth,(req,res)=>{
-  res.send("Welcome");
+const em = new events.EventEmitter();
+
+let eventC = 0;
+
+em.on("Event Set",(req,res)=>{
+  eventC++;
 })
 
-app.post("/makeProject",basicAuth,createProject,(req,res)=>{
-  //logic
-  res.send("Yeh You can");
+app.get("",(req,res)=>{
+  res.send("Hi");
 })
 
-app.get("/viewProject",basicAuth,canView,(req,res)=>{
-  //logic
-  res.send("Data");
-});
+app.get("/event",(req,res)=>{
+  em.emit("Event Set","My First Emitter");
+  res.send(`Event Called ${eventC} times`);
+})
 
-app.listen(8080);
+app.listen(3000);
